@@ -1,0 +1,20 @@
+{
+  "name": "Binary",
+  "plural": "binaries",
+  "base": "PersistedModel",
+  "properties": {
+    "filename": {
+      "type": "string"
+    },
+    "mime": {
+      "type": "string"
+    },
+    "content": {
+	  "type": "buffer"
+	}
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": []
+}

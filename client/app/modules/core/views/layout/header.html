@@ -1,0 +1,112 @@
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="home">Team Spirit</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a ui-sref="about">About</a>
+                </li>
+                <li>
+                    <a ui-sref="services">Services</a>
+                </li>
+                <li>
+                    <a ui-sref="contact">Contact</a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ui-sref="portfolio-1">1 Column Portfolio</a>
+                        </li>
+                        <li>
+                            <a ui-sref="portfolio-2">2 Column Portfolio</a>
+                        </li>
+                        <li>
+                            <a ui-sref="portfolio-3">3 Column Portfolio</a>
+                        </li>
+                        <li>
+                            <a ui-sref="portfolio-4">4 Column Portfolio</a>
+                        </li>
+                        <li>
+                            <a ui-sref="portfolio-item">Single Portfolio Item</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ui-sref="blog-1">Blog Home 1</a>
+                        </li>
+                        <li>
+                            <a ui-sref="blog-2">Blog Home 2</a>
+                        </li>
+                        <li>
+                            <a ui-sref="blog-post">Blog Post</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a ui-sref="full-width">Full Width Page</a>
+                        </li>
+                        <li>
+                            <a ui-sref="sidebar">Sidebar Page</a>
+                        </li>
+                        <li>
+                            <a ui-sref="faq">FAQ</a>
+                        </li>
+                        <li>
+                            <a ui-sref="404">404</a>
+                        </li>
+                        <li>
+                            <a ui-sref="pricing">Pricing Table</a>
+                        </li>
+                    </ul>
+                </li>
+				<li class="dropdown user user-menu"><a class="dropdown-toggle"
+					data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i>
+						<span>{{currentUser.firstName ||
+							currentUser.profiles[0].profile.name.givenName}}<i class="caret"></i>
+					</span>
+				</a>
+					<ul class="dropdown-menu">
+						<li class="user-header bg-light-blue"><img
+							gravatar-src="currentUser.email" class="img-circle"
+							alt="User Image">
+
+							<p>
+								{{currentUser.firstName ||
+								currentUser.profiles[0].profile.displayName}} <small>{{currentUser.email}}</small>
+							</p></li>
+						<li class="user-footer">
+							<div class="pull-left">
+								<a ui-sref="app.teams.list" class="btn btn-default btn-flat"
+									translate>My Teams</a>
+							</div>
+							<div class="pull-right">
+								<a ng-click="logout()" class="btn btn-default btn-flat"
+									translate>Sign out</a>
+							</div>
+						</li>
+					</ul></li>
+			</ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>

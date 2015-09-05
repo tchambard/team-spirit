@@ -1,0 +1,33 @@
+{
+  "name": "Team",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+	"name": {
+		"type": "string",
+		"required": true
+	},
+	"mainColor": {
+		"type": "string"
+	},
+	"secondColor": {
+		"type": "string"
+	},
+	"avatarId": {
+	  "type": "string"
+	}
+  },
+  "validations": [],
+  "relations": {
+
+    "members": {
+        "type": "hasMany",
+        "model": "user",
+        "foreignKey": "teamId",
+        "through": "MemberMapping",
+        "keyThrough": "userId"
+      }
+  },
+  "acls": [],
+  "methods": []
+}

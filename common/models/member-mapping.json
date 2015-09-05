@@ -1,0 +1,18 @@
+{  
+  "name": "MemberMapping",
+  "base": "PersistedModel",
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "userId"
+    },
+    "team": {
+      "type": "belongsTo",
+      "model": "Team",
+      "foreignKey": "teamId"
+    }
+  }
+}
