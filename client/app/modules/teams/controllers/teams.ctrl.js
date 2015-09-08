@@ -68,13 +68,13 @@ app.controller('TeamsCtrl', function($scope, $stateParams, $state, CoreService,
 
   
 
-}).controller('TeamEditCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog, $modalInstance, team) {
+}).controller('TeamCreateCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog, $modalInstance, team) {
 	$scope.team = team;
 	$scope.onSubmit = function() {
-	    Team.upsert($scope.team, function() {
-	      CoreService.toastSuccess(gettextCatalog.getString('Team saved'),
-	        gettextCatalog.getString('Modifications saved!'));
+	    Team.create($scope.team, function(t) {
+	      CoreService.toastSuccess(gettextCatalog.getString('Team saved'));
 	      $modalInstance.close();
+	      $state.go('app.teams.view', {id: t.id}, {reload: true});
 	    }, function(err) {
 	      CoreService.toastError(gettextCatalog.getString(
 	        'Error saving team: ', +err));

@@ -7,12 +7,4 @@
 			<img ng-src="{{img}}" class="img-responsive" />      
 		</div>
 	</div>
-	<div class="panel-footer team-card-footer">
-		<!-- <small><pre>{{team|json}}</pre></small> -->  
-		<div class='pull-right control-group'>
-			<button class="btn btn-primary fa fa-pencil" modal-view-url="modules/teams/views/modals/form.html" modal-controller="TeamEditCtrl" modal-data="team"></button>
-			<button class="btn btn-danger fa fa-trash" ng-click="$parent.delete({ id: team.id })"></button>
-      	</div>
-      	<div><pre>{{team|json}}</pre></div>
-	</div>
 </div>
