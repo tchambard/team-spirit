@@ -25,18 +25,24 @@ angular.module('com.module.teams')
             },
 
             'logo@app.teams.view': {
-            	controller: 'TeamLogoCtrl',
-                templateUrl: 'modules/teams/views/cards/logo-card.html'
+            	controller: function($scope) {
+            		$scope = $scope.$parent;  
+            	},
+            	templateUrl: 'modules/teams/views/cards/logo-card.html'
             },
 
             'members@app.teams.view': { 
-            	controller: 'TeamMembersCtrl',
+            	controller: function($scope) {
+            		$scope = $scope.$parent;  
+            	},
                 templateUrl: 'modules/teams/views/cards/members-card.html'
             },
             
             'json@app.teams.view': {
-            	controller: 'TeamJsonCtrl',
-                templateUrl: 'modules/teams/views/cards/json-card.html'
+            	controller: function($scope) {
+            		$scope = $scope.$parent;  
+            	},
+            	templateUrl: 'modules/teams/views/cards/json-card.html'
             },
         }
         

@@ -1,6 +1,8 @@
 <div class="blended_grid">
 	<div class="pageHeader">
-		<img ng-src="{{team.avatarUrl}}"></img>
+	    <button type="button" style="position: absolute;" class="btn btn-default pull-left" modal-view-url="modules/core/views/elements/modals/image.html" modal-controller="Cropper2Ctrl" modal-data="getBanModalData()">Edit</button>
+	
+		<img ng-src="{{team.banUrl}}" class="img-responsive"></img>
 	</div>
 	<div class="pageBarLeft">
 		<div class="card" ui-view="logo"></div>

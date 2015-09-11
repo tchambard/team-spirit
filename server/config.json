@@ -7,7 +7,7 @@
   "legacyExplorer": false,
   "remoting": {
 	  "json": {
-		  "limit": "50mb",
+		  "limit": "50Mb",
 		  "strict": false
 	  },
 	  "urlencoded": {

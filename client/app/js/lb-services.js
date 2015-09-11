@@ -13689,7 +13689,7 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Team#getLogo
+         * @name lbServices.Team#getImage
          * @methodOf lbServices.Team
          *
          * @description
@@ -13700,7 +13700,9 @@ module.factory(
          *
          * @param {Object=} parameters Request parameters.
          *
-         *  - `id` – `{string}` - 
+         *  - `teamId` – `{string}` - 
+         *
+         *  - `property` – `{string}` - 
          *
          *  - `res` – `{object=}` - 
          *
@@ -13716,14 +13718,14 @@ module.factory(
          *
          * This method returns no data.
          */
-        "getLogo": {
-          url: urlBase + "/Teams/:id/getLogo",
+        "getImage": {
+          url: urlBase + "/Teams/:id/getImage",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Team#setLogo
+         * @name lbServices.Team#setImage
          * @methodOf lbServices.Team
          *
          * @description
@@ -13734,7 +13736,9 @@ module.factory(
          *
          * @param {Object=} parameters Request parameters.
          *
-         *  - `id` – `{string=}` - 
+         *  - `teamId` – `{string}` - 
+         *
+         *  - `property` – `{string}` - 
          *
          * @param {Object} postData Request data.
          *
@@ -13752,10 +13756,10 @@ module.factory(
          *
          * Data properties:
          *
-         *  - `logo` – `{string=}` - 
+         *  - `img` – `{string=}` - 
          */
-        "setLogo": {
-          url: urlBase + "/Teams/setLogo",
+        "setImage": {
+          url: urlBase + "/Teams/setImage",
           method: "POST"
         },
 

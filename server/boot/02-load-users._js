@@ -1,16 +1,9 @@
 'use strict';
 
-var fs = require('fs');
 // to enable these logs set `DEBUG=boot:02-load-users` or `DEBUG=boot:*`
 var log = require('debug')('boot:02-load-users');
 
-function getImage(_) {
-	return fs.readFile('boot/data/shadow.jpeg', _);
-}
 
-function createReadableStream(){
-	return fs.createReadStream('boot/data/shadow.jpeg');
-}
 
 function importData(_, app) {
 	
@@ -145,7 +138,7 @@ function importData(_, app) {
 			);
 			
 			console.log("Created team: "+JSON.stringify(createdTeam, null, 2));
-			Team.setLogo(createdTeam.id, getImage(_));
+			Team.setImage(createdTeam.id, "logo", "boot/data/shadow.jpeg");
 			
 			
 			members.forEach_(_, function(_, member) {

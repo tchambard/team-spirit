@@ -20,7 +20,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.5);
 	float: left;
 	clear: none;
-	height: 200px;
+	height: 400px;
 	width: 1200px;
 }
 
@@ -34,7 +34,7 @@ body {
 .pageBarLeft .card{
 	margin-top: 20px;
 	padding: 5px;
-	background-color: red;
+	background-color: black;
 	float: none;
 	clear: both;
 	width: 300px;

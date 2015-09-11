@@ -10,35 +10,32 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 	  });
 	};
 	
+	$scope.getLogoModalData = function() {
+		return {
+			id: $scope.team.id,
+			prop: "logo",
+			url: $scope.team.avatarUrl,
+			uploadFn: TeamSvc.uploadImg,
+			ratio: 1 / 1
+		}
+	}
+	
+	$scope.getBanModalData = function() {
+		return {
+			id: $scope.team.id,
+			prop: "ban",
+			url: $scope.team.banUrl,
+			uploadFn: TeamSvc.uploadImg,
+			ratio: 3 / 1
+		}
+	}
+	
 	if ($stateParams.id) {   
 		$scope.team = $scope.getTeam($stateParams.id);
 	} else {
 		$scope.team = {};
 	}
 	  
-	  
-	  
-}).controller('TeamLogoCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog) {
-	$scope = $scope.$parent;
-    $scope.reload = function(){
-    	$state.transitionTo($state.current, $state.params, { reload: true, inherit: true, notify: true })
-    }
-	  
-	  
-}).controller('TeamMembersCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog) {
-	$scope = $scope.$parent;
-	  
-	  
-	  
-}).controller('TeamJsonCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog) {
-	$scope = $scope.$parent;
-	$scope.getLogoModalData = function() {
-		return {
-			id: $scope.team.id,
-			url: $scope.team.avatarUrl,
-			uploadFn: TeamSvc.uploadLogo
-		}
-	}
 	  
 	  
 }).controller('TeamsCtrl', function($scope, $stateParams, $state, CoreService,
@@ -53,8 +50,14 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 		Team.find({}, function(teams) {
 			$scope.loading = false;
 			$scope.teams = teams.map(function(t) {
-				if (t.logoId) {
-					t.avatarUrl = CoreService.env.apiUrl +  "/Teams/{id}/getLogo?id="+ t.id ;
+				if (t.logo) {
+					t.avatarUrl = CoreService.env.apiUrl +  "/Teams/{teamId}/getImage?teamId="+ t.id + "&property=logo";
+				} else {
+					//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
+				}
+				
+				if (t.ban) {
+					t.banUrl = CoreService.env.apiUrl +  "/Teams/{teamId}/getImage?teamId="+ t.id + "&property=ban";
 				} else {
 					//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 				}

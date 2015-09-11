@@ -87,13 +87,13 @@ angular.module('com.module.core')
 	    Cropper.crop(file, crData)
 	    	// scale
 	    	.then(function(blob) {
-	    		return Cropper.scale(blob, {width: 600});
+	    		return Cropper.scale(blob, {height: 200});
 	    	})
 	    	// encode
 	    	.then(Cropper.encode)
 	    	// upload
 	    	.then(function(dataUrl) {
-	    		data.uploadFn(data.id, dataUrl, function(err, result) {
+	    		data.uploadFn(data.id, data.prop, dataUrl, function(err, result) {
 	    			$modalInstance.close();
 	    			$state.transitionTo($state.current, $state.params, { reload: true, inherit: true, notify: true })
 	    		},2000); 
@@ -105,7 +105,7 @@ angular.module('com.module.core')
 	   */
 	  $scope.options = {
 	    maximize: true,
-	    aspectRatio: 1 / 1,
+	    aspectRatio: data.ratio || 4 / 3,
 	    crop: function(dataNew) {
 	      crData = dataNew;
 	    },

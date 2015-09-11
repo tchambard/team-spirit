@@ -13,7 +13,10 @@
 	"secondColor": {
 		"type": "string"
 	},
-	"logoId": {
+	"logo": {
+	  "type": "string"
+	},
+	"ban": {
 	  "type": "string"
 	}
   },

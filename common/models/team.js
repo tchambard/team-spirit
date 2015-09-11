@@ -2,25 +2,8 @@ var mongoUtils = require("../tools/mongoUtils");
 
 module.exports = function(Team) {
 
-	Team.getLogo = function(id, res, cb) {
+	Team.getImage = function(teamId, prop, res, cb) {
 		
-		this.findOne({
-			where : {
-				id : id
-			}
-		}, function(err, team) {
-			if (err) throw err;
-			//
-			var db = team.constructor.app.datasources.db.connector.db;
-			mongoUtils.readBlob(db, team.logoId, res, function (err) {
-				res.type('application/json');
-				res.status(500).send({ error: err });
-			});
-			// callback is intentionally not invoked
-		});
-	};
-	
-	Team.setLogo = function(teamId, data, cb) {
 		this.findOne({
 			where : {
 				id : teamId
@@ -29,14 +12,37 @@ module.exports = function(Team) {
 			if (err) throw err;
 			//
 			var db = team.constructor.app.datasources.db.connector.db;
-			
-			if (!(data instanceof Buffer)) {
-				buffer = new Buffer(data.data.split(',')[1], "base64");
-			} else {
-				buffer = data;
+			mongoUtils.readBlob(db, team[prop], res, function (err) {
+				res.type('application/json');
+				res.status(500).send({ error: err });
+			});
+			// callback is intentionally not invoked
+		});
+	};
+	
+	Team.setImage = function(teamId, prop, data, cb) {
+		this.findOne({
+			where : {
+				id : teamId
 			}
-			mongoUtils.writeBlob(db, team.name + "_logo", buffer, function(writerId) {
-				  team.updateAttribute("logoId", writerId, function(err, inst) {
+		}, function(err, team) {
+			if (err) throw err;
+			//
+			var db = team.constructor.app.datasources.db.connector.db;
+			var buffer, ext;
+			if (typeof data !== "string") {
+				var regex = /^data:.+\/(.+);base64,(.*)$/;
+
+				var matches = data.data.match(regex);
+				ext = "." + matches[1];
+				var _data = matches[2];
+				buffer = new Buffer(_data, "base64");
+			} else {
+				ext = require('path').extname(data);
+				buffer = require("fs").readFileSync(data);
+			}
+			mongoUtils.writeBlob(db, team.name + "_" + prop + ext, buffer, function(writerId) {
+				  team.updateAttribute(prop, writerId, function(err, inst) {
 					  if (err) throw err;
 					  if (cb) cb();
 				  });
@@ -46,30 +52,51 @@ module.exports = function(Team) {
 	};
 	
 
-	
-
-	
-	
-
-	Team.remoteMethod('getLogo', {
-	  accepts: [
-	    {arg: 'id', type: 'string', required: true, 'http': {source: 'query'}},
-	    {arg: 'res', type: 'object', 'http': {source: 'res'}}
+	Team.remoteMethod('getImage', {
+	  accepts: [{
+			arg : 'teamId',
+			type : 'string',
+			required: true, 
+			http : {
+				source : 'query'
+			}
+		}, {
+			arg : 'property',
+			type : 'string',
+			required: true, 
+			http : {
+				source : 'query'
+			}
+		},
+	    {
+			arg: 'res',
+			type: 'object',
+			http: {
+				source: 'res'
+			}
+		}
 	  ],
 	  http: {
 	    verb: 'get',
-	    path: '/:id/getLogo'
+	    path: '/:id/getImage'
 	  }
 	});
 	
-	Team.remoteMethod('setLogo', {
+	Team.remoteMethod('setImage', {
 		http : {
-			path : '/setLogo',
+			path : '/setImage',
 			verb : 'post'
 		},
 		
 		accepts : [{
-			arg : 'id',
+			arg : 'teamId',
+			type : 'string',
+			required: true, 
+			http : {
+				source : 'query'
+			}
+		}, {
+			arg : 'property',
 			type : 'string',
 			required: true, 
 			http : {
@@ -83,7 +110,7 @@ module.exports = function(Team) {
 			}
 		}],
 		returns : {
-			arg : 'logo',
+			arg : 'img',
 			type : 'string'
 		}
 	});
