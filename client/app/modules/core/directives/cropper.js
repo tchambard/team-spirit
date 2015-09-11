@@ -9,7 +9,7 @@
 angular.module('com.module.core')
   .directive('cropperView', function() {
 	  return {
-		templateUrl: 'modules/core/views/elements/img-cropper.html',
+		templateUrl: 'modules/core/views/elements/modals/image.html',
         restrict: 'E',
         scope: false,
         link: function($scope, element, attrs){

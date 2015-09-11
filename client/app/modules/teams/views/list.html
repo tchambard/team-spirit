@@ -1,4 +1,7 @@
+<section admin-header class="content-header" title="{{ 'Team' | translate }}" sub-title="{{ 'Manage your teams here!' | translate }}">
+	<button type="button" class="btn btn-default pull-right" modal-view-url="modules/core/views/elements/modals/form.html" modal-controller="TeamCreateCtrl">Add team</button>
 
+</section>
  
 <div class="row" ng-init="getTeams()">
 	<team-card name="{{ team.name }}" img="{{team.avatarUrl}}" color="{{ team.mainColor }}" icon="ion-ios-football"
@@ -9,4 +12,3 @@
 <div ng-if="loading" class="loading-img"></div>
 
 
-<button type="button" class="btn btn-info btn-lg" modal-view-url="modules/teams/views/modals/form.html" modal-controller="TeamCreateCtrl" modal-data="team">Add team</button>

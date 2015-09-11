@@ -1,27 +1,48 @@
 'use strict';
 var app = angular.module('com.module.teams');
 
-
-app.controller('TeamsCtrl', function($scope, $stateParams, $state, CoreService,
-  Team, TeamSvc, gettextCatalog) {
-
-
-	var getTeam = $scope.getTeam = function(id) {
+app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog) {
+	  
+	$scope.getTeam = function(id) {
 		return TeamSvc.getTeamById($stateParams.id, function(err, team) {
 		  if (err) CoreService.toastError(gettextCatalog.getString('Error getting team: ' + err.message));
 		  $scope.team = team;
 	  });
 	};
 	
-  if ($stateParams.id) {
-    
-	  getTeam($stateParams.id);
-	
-  } else {
-    $scope.team = {};
-  }
-
-
+	if ($stateParams.id) {   
+		$scope.team = $scope.getTeam($stateParams.id);
+	} else {
+		$scope.team = {};
+	}
+	  
+	  
+	  
+}).controller('TeamLogoCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog) {
+	$scope = $scope.$parent;
+    $scope.reload = function(){
+    	$state.transitionTo($state.current, $state.params, { reload: true, inherit: true, notify: true })
+    }
+	  
+	  
+}).controller('TeamMembersCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog) {
+	$scope = $scope.$parent;
+	  
+	  
+	  
+}).controller('TeamJsonCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog) {
+	$scope = $scope.$parent;
+	$scope.getLogoModalData = function() {
+		return {
+			id: $scope.team.id,
+			url: $scope.team.avatarUrl,
+			uploadFn: TeamSvc.uploadLogo
+		}
+	}
+	  
+	  
+}).controller('TeamsCtrl', function($scope, $stateParams, $state, CoreService,
+  Team, TeamSvc, gettextCatalog) {
 
   $scope.sortType     = 'lastName'; // set the default sort type
   $scope.sortReverse  = false;  // set the default sort order
@@ -32,10 +53,10 @@ app.controller('TeamsCtrl', function($scope, $stateParams, $state, CoreService,
 		Team.find({}, function(teams) {
 			$scope.loading = false;
 			$scope.teams = teams.map(function(t) {
-				if (t.avatarId) {
-					t.avatarUrl = CoreService.env.apiUrl +  "/Teams/{id}/getAvatar?id="+ t.id ;
+				if (t.logoId) {
+					t.avatarUrl = CoreService.env.apiUrl +  "/Teams/{id}/getLogo?id="+ t.id ;
 				} else {
-					t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
+					//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 				}
 				return t;
 			});
@@ -44,7 +65,6 @@ app.controller('TeamsCtrl', function($scope, $stateParams, $state, CoreService,
 
 
 	  $scope.delete = function(id) {
-		  console.log("ID: "+JSON.stringify(id,null,2));
 		    CoreService.confirm(gettextCatalog.getString('Are you sure?'),
 		      gettextCatalog.getString('Deleting this cannot be undone'),
 		      function() {
@@ -68,8 +88,8 @@ app.controller('TeamsCtrl', function($scope, $stateParams, $state, CoreService,
 
   
 
-}).controller('TeamCreateCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog, $modalInstance, team) {
-	$scope.team = team;
+}).controller('TeamCreateCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog, $modalInstance) {
+	$scope.team = {};
 	$scope.onSubmit = function() {
 	    Team.create($scope.team, function(t) {
 	      CoreService.toastSuccess(gettextCatalog.getString('Team saved'));

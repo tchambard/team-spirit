@@ -7,9 +7,7 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 var path = require('path');
 var app = module.exports = loopback();
-var env = require('get-env')({
-  test: 'test'
-});
+var env = require('get-env')();
 
 // Set up the /favicon.ico
 app.use(loopback.favicon());

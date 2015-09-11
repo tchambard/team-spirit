@@ -1,21 +1,21 @@
 {
-  "name": "loopback-angular-admin",
-  "subdomain": "loopback-angular-admin",
-  "description": "Quickly create admin interfaces on a Loopback 2.x API",
-  "version": "0.1.1",
+  "name": "team-spirit",
+  "subdomain": "team-spirit",
+  "description": "Manage your teams",
+  "version": "0.0.1",
   "engines": {
     "node": "0.10.x",
     "npm": "2.1.x"
   },
   "homepage": "https://github.com/beeman/loopback-angular-admin",
-  "author": "Bram Borggreve <borggreve@gmail.com>",
+  "author": "Teddy Chambard <teddy.chambard@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/beeman/loopback-angular-admin"
+    "url": "https://github.com/tchambard/team-spirit"
   },
   "bugs": {
-    "url": "https://github.com/beeman/loopback-angular-admin/issues"
+    "url": "https://github.com/tchambard/team-spirit/issues"
   },
   "scripts": {
     "start": "node server/server.js",

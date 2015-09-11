@@ -13,7 +13,7 @@
 	"secondColor": {
 		"type": "string"
 	},
-	"avatarId": {
+	"logoId": {
 	  "type": "string"
 	}
   },

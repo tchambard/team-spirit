@@ -12,7 +12,7 @@ module.exports = function(Team) {
 			if (err) throw err;
 			//
 			var db = team.constructor.app.datasources.db.connector.db;
-			mongoUtils.readBlob(db, team.logoId, res, function (err) {
+			mongoUtils.readImage(db, team.logoId, res, function (err) {
 				res.type('application/json');
 				res.status(500).send({ error: err });
 			});
@@ -20,7 +20,7 @@ module.exports = function(Team) {
 		});
 	};
 	
-	Team.setLogo = function(teamId, data, cb) {
+	Team.setLogo = function(teamId, buffer) {
 		this.findOne({
 			where : {
 				id : teamId
@@ -29,16 +29,10 @@ module.exports = function(Team) {
 			if (err) throw err;
 			//
 			var db = team.constructor.app.datasources.db.connector.db;
-			
-			if (!(data instanceof Buffer)) {
-				buffer = new Buffer(data.data.split(',')[1], "base64");
-			} else {
-				buffer = data;
-			}
-			mongoUtils.writeBlob(db, team.name + "_logo", buffer, function(writerId) {
+			mongoUtils.writeImage(db, team.name + "_logo", buffer, function(writerId) {
+				console.error("logo id:"+writerId)
 				  team.updateAttribute("logoId", writerId, function(err, inst) {
 					  if (err) throw err;
-					  if (cb) cb();
 				  });
 			 });
 		});
@@ -71,7 +65,6 @@ module.exports = function(Team) {
 		accepts : [{
 			arg : 'id',
 			type : 'string',
-			required: true, 
 			http : {
 				source : 'query'
 			}

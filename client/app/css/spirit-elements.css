@@ -61,6 +61,11 @@
 }
 
 
+
+.img-responsive {
+	width: 100%;
+}
+
 /*
     Component: Small boxes
 */
@@ -170,7 +175,8 @@
   }
 }
 
-
+    
+/* button file style */
 .btn-file {
   position: relative;
   overflow: hidden;

@@ -16,16 +16,25 @@ angular.module('com.module.teams')
 	    	        include: ['members']
 	    	      }
 	    	    }, function(team) {
-	    	    	if (team.avatarId) {
-	    	    		team.avatarUrl = CoreService.env.apiUrl +  "/Teams/{id}/getAvatar?id="+ team.id ;
+	    	    	if (team.logoId) {
+	    	    		team.avatarUrl = CoreService.env.apiUrl +  "/Teams/{id}/getlogo?id="+ team.id ;
 	    	    	} else {
-	    	    		team.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
+	    	    		//team.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 	    	    	}
 	    	    	cb(null, team);
 	    	    }, function(err) {
 		    	    cb(err);
 	    		});
 	      
+	      },
+	      uploadLogo: function(id, data, cb) {
+	    	  console.log("UPLOAD LOGO SVC CALLED");
+	    	  Team.setLogo({id: id}, {data: data}, function(result, headers) {
+	    		  	console.log("headers: "+JSON.stringify(headers,null,2));
+	    	    	cb(null, result);
+	    	    }, function(err) {
+		    	    cb(err);
+	    		});
 	      }
 	  }
   });

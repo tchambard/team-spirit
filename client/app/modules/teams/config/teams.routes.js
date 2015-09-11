@@ -15,9 +15,31 @@ angular.module('com.module.teams')
       })
       .state('app.teams.view', {
         url: '/view/:id',
-        templateUrl: 'modules/teams/views/view.html',
-        controller: 'TeamsCtrl',
-        authenticate: false
+        
+        authenticate: false,
+        views: {
+
+            '': {
+            	controller: 'TeamViewCtrl',
+            	templateUrl: 'modules/teams/views/view.html'
+            },
+
+            'logo@app.teams.view': {
+            	controller: 'TeamLogoCtrl',
+                templateUrl: 'modules/teams/views/cards/logo-card.html'
+            },
+
+            'members@app.teams.view': { 
+            	controller: 'TeamMembersCtrl',
+                templateUrl: 'modules/teams/views/cards/members-card.html'
+            },
+            
+            'json@app.teams.view': {
+            	controller: 'TeamJsonCtrl',
+                templateUrl: 'modules/teams/views/cards/json-card.html'
+            },
+        }
+        
       })
       .state('app.teams.add', {
         url: '/add',

@@ -13,7 +13,7 @@ angular.module('com.module.core')
         scope: { // isolate scope
             'modalViewUrl': '@', // modal view url to render the modal content
             'modalController': '@', // modal view controller (optional)
-            'modalData': '@'
+            'modalData': '&'
         },
         link: function($scope, element, attrs){
             element.bind('click', function(){
@@ -24,9 +24,10 @@ angular.module('com.module.core')
                     controller: $scope.modalController,    
                     resolve: {}
                 };
-                data.resolve[$scope.modalData] = function () {
-                    return $scope.$parent[$scope.modalData];
+                data.resolve.data = function () {
+                    return $scope.modalData();
                 }
+
             	
             	var modalInstance = $modal.open(data);
             });

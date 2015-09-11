@@ -1,0 +1,17 @@
+<div class="box">
+  <div class="box-header">
+    <h3 class="box-title">
+      <a class="btn btn-default" translate><i class="fa fa-arrow-left"></i> Members</a>
+    </h3>
+  </div>
+  <div class="box-body">
+	<div ng-repeat="member in team.members | orderBy:sortType:sortReverse">
+		{{member.lastName}} {{member.firstName}}
+	</div>
+  </div>
+
+
+ </div>
+
+
+

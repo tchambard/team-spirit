@@ -1,0 +1,11 @@
+<div class="panel panel-default">
+
+  	<div class="panel-heading clearfix">
+    	<h3 class="panel-title pull-left">{{ team.name }}</h3>
+    	<button type="button" class="btn btn-default pull-right" modal-view-url="modules/core/views/elements/modals/image.html" modal-controller="Cropper2Ctrl" modal-data="getLogoModalData()">Edit</button>
+    	
+    </div>
+	<div style="background-color: {{team.color}}">
+		<img ng-src="{{team.avatarUrl}}" class="img-responsive" />      
+	</div>
+</div>

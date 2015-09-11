@@ -145,7 +145,7 @@ function importData(_, app) {
 			);
 			
 			console.log("Created team: "+JSON.stringify(createdTeam, null, 2));
-			Team.setAvatar(createdTeam.id, "shadow.jpeg", createReadableStream());
+			Team.setLogo(createdTeam.id, getImage(_));
 			
 			
 			members.forEach_(_, function(_, member) {
