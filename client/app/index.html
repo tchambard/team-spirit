@@ -60,7 +60,7 @@
 
 <body>
 
-	<div class="container">
+	<div class="container" >
 		<ng-include src="'modules/core/views/layout/header.html'"></ng-include>
 		<div ui-view></div>   
 		<hr>
@@ -69,7 +69,7 @@
 
 
 	<div ng-controller="toasty-controller">
-	  <toasty-container toasty-defaults='{"timeout": 3000, "close-button":true, "sound": false}'></toasty-container>
+	  <toasty-container toasty-defaults='{"timeout": 5000, "close-button":true, "sound": true}'></toasty-container>
 	</div>
 
 
@@ -125,8 +125,8 @@
 <script src="vendor/bootstrap-material-design/dist/js/ripples.min.js"></script>
 <script src="vendor/bootstrap-material-design/dist/js/material.min.js"></script>
 <script src="vendor/bootcards/dist/js/bootcards.min.js"></script>
-<!-- <script src="vendor/ng-img-crop/compile/minified/ng-img-crop.js"></script> -->
 <script src="vendor/ng-cropper/dist/ngCropper.all.js"></script>
+<script src="vendor/angular-permission/dist/angular-permission.js"></script>
 
 <!-- endbower -->
 <!-- endbuild -->

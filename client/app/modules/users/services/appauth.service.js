@@ -9,7 +9,7 @@ angular.module('com.module.users')
       login: function(data, cb) {
         var self = this;
         LoopBackAuth.currentUserId = LoopBackAuth.accessTokenId = null;
-        $http.post('/api/users/login?include=user', {
+        $http.post('/api/users/login', {
             email: data.email,
             password: data.password
           })
@@ -23,13 +23,27 @@ angular.module('com.module.users')
               LoopBackAuth.accessTokenId = null;
             }
             LoopBackAuth.save();
-            if (LoopBackAuth.currentUserId && response.data && response.data
-              .user) {
-              self.currentUser = response.data.user;
-              cb(self.currentUser);
+            
+            if (LoopBackAuth.currentUserId) {
+            	   User.findOne({
+            		      filter: {
+            		        where: {
+            		          id: LoopBackAuth.currentUserId
+            		        },
+            		        include: ['roles', 'identities', 'credentials', 'accessTokens']
+            		      }
+            		    }, function(user) {
+            		    	self.currentUser = user;
+            		    	console.log(JSON.stringify(user,null,2));
+            		    	cb(self.currentUser);
+            		    }, function(err) {
+            		      console.log(err);
+            		      cb({});
+            		    });
+            	   
 
             } else {
-              cb({});
+            	cb({});
             }
           }, function() {
             console.log('User.login() err', arguments);
@@ -83,6 +97,8 @@ angular.module('com.module.users')
           cb(self.currentUser);
         }
       }
+      
+      
     };
   })
   .directive('restrict', function(authService){

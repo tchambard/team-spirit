@@ -90,15 +90,31 @@ angular.module('com.module.users')
           console.log(user.created); // => 2013-12-20T21:10:20.377Z
           console.log(user.userId); // => 1
 
-          var next = $location.nextAfterLogin || '/';
-          $location.nextAfterLogin = null;
-          AppAuth.currentUser = $scope.loginResult.user;
-          CoreService.toastSuccess(gettextCatalog.getString('Logged in'),
-            gettextCatalog.getString('You are logged in!'));
-          if (next === '/login') {
-            next = '/';
-          }
-          $location.path(next);
+          
+          User.findOne({
+		      filter: {
+		        where: {
+		          id: user.userId
+		        },
+		        include: ['roles', 'identities', 'credentials', 'accessTokens']
+		      }
+		    }, function(usr) {
+		          var next = $location.nextAfterLogin || '/';
+		          $location.nextAfterLogin = null;
+		          AppAuth.currentUser = usr;
+		          CoreService.toastSuccess(gettextCatalog.getString('Logged in'),
+		            gettextCatalog.getString('You are logged in!'));
+		          if (next === '/login') {
+		            next = '/dashboard';
+		          }
+		          $location.path(next);
+		    	
+		    }, function(err) {
+		    	CoreService.toastError(gettextCatalog.getString('Failed to retrieve user profile: '+err.message));
+		    });
+          
+          
+
 
         },
         function(res) {

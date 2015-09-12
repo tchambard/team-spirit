@@ -101,7 +101,13 @@ angular.module('com.module.core')
       .state('sidebar', {
         url: '/sidebar',
         templateUrl: 'modules/core/views/sidebar.html',
-      })      
+      })  
+      
+      .state('dashboard', {
+        url: '/dashboard',
+        abstract: true,
+        templateUrl: 'modules/core/views/dashboard.html',
+      }) 
 
     $urlRouterProvider.otherwise('/router');
   });

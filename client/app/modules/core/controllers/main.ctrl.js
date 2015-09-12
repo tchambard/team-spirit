@@ -23,9 +23,11 @@ angular.module('com.module.core')
     $scope.menuoptions = $rootScope.menu;
     $scope.logout = function() {
       User.logout(function() {
-        $state.go('login');
+        $state.go('home');
+        $scope.currentUser = null;
         CoreService.toastSuccess(gettextCatalog.getString('Logged out'),
           gettextCatalog.getString('You are logged out!'));
       });
     };
+
   });

@@ -11,11 +11,13 @@ module.exports = function(Team) {
 		}, function(err, team) {
 			if (err) throw err;
 			//
-			var db = team.constructor.app.datasources.db.connector.db;
-			mongoUtils.readBlob(db, team[prop], res, function (err) {
-				res.type('application/json');
-				res.status(500).send({ error: err });
-			});
+			if (team) {
+				var db = team.constructor.app.datasources.db.connector.db;
+				mongoUtils.readBlob(db, team[prop], res, function (err) {
+					res.type('application/json');
+					res.status(500).send({ error: err });
+				});
+			}
 			// callback is intentionally not invoked
 		});
 	};

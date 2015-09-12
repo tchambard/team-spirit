@@ -33,7 +33,8 @@ angular.module('com.module.users')
     $scope.formOptions = {
       uniqueFormId: true,
       hideSubmit: false,
-      submitCopy: gettextCatalog.getString('Save')
+      submitCopy: gettextCatalog.getString('Save'),
+
     };
 
     $scope.onSubmit = function() {

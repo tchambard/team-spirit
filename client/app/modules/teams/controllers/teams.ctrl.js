@@ -38,6 +38,24 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 	  
 	  
 	  
+}).controller('TeamMembersCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog) {
+	  
+	$scope.getTeam = function(id) {
+		return TeamSvc.getTeamById($stateParams.id, function(err, team) {
+		  if (err) CoreService.toastError(gettextCatalog.getString('Error getting team: ' + err.message));
+		  $scope.team = team;
+	  });
+	};
+	
+	
+	if ($stateParams.id) {   
+		$scope.team = $scope.getTeam($stateParams.id);
+	} else {
+		$scope.team = {};
+	}
+	  
+	  
+	  
 }).controller('TeamsCtrl', function($scope, $stateParams, $state, CoreService,
   Team, TeamSvc, gettextCatalog) {
 
@@ -76,7 +94,7 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 		            CoreService.toastSuccess(gettextCatalog.getString(
 		              'Team deleted'), gettextCatalog.getString(
 		              'Your team is deleted!'));
-		            $state.go('app.teams.list', {}, {reload: true});
+		            $state.go('app.team.list', {}, {reload: true});
 		          },
 		          function(err) {
 		            CoreService.toastError(gettextCatalog.getString(
@@ -97,7 +115,7 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 	    Team.create($scope.team, function(t) {
 	      CoreService.toastSuccess(gettextCatalog.getString('Team saved'));
 	      $modalInstance.close();
-	      $state.go('app.teams.view', {id: t.id}, {reload: true});
+	      $state.go('app.team.view', {id: t.id}, {reload: true});
 	    }, function(err) {
 	      CoreService.toastError(gettextCatalog.getString(
 	        'Error saving team: ', +err));

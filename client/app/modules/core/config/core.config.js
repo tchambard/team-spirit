@@ -1,7 +1,21 @@
 'use strict';
 var app = angular.module('com.module.core');
-app.run(function($rootScope, gettextCatalog) {
+app.run(function($rootScope, gettextCatalog, Permission) {
 
+	
+	Permission.defineRole('anonymous', function (stateParams) {
+		if (!User) {
+			return true; // Is anonymous
+		}
+		return false;
+	});
+	// permissions
+	Permission.defineManyRoles(['admin'], function (stateParams, roleName) {
+	    return User.hasRole(roleName);
+	});
+	
+	
+	
   // Left Sidemenu
   $rootScope.menu = [];
 

@@ -3,14 +3,18 @@
 // to enable these logs set `DEBUG=boot:02-load-users` or `DEBUG=boot:*`
 var log = require('debug')('boot:02-load-users');
 
+//require('events').EventEmitter.prototype._maxListeners = 100;
 
 
 function importData(_, app) {
 	
+	var User = app.models.user;
+	var Role = app.models.Role;
+	var RoleMapping = app.models.RoleMapping;
+	
 	var users = [], roles = [];
 	
 	function createUsers(_) {
-		var User = app.models.User;
 
 		[{
 			firstName: 'Admin',
@@ -72,15 +76,23 @@ function importData(_, app) {
 			email: 'user8@users.com',
 			username: 'user8',
 			password: 'user8'
-		},].forEach_(_, function(_, user) {
+		}].forEach_(_, function(_, user) {
 			try {
-				var createdUser = User.findOrCreate(
+				var result = User.findOrCreate(
 						{where: {username: user.username}}, // find
 						user, // create
-						_ // callback
+						[_]
 				);
-				console.log("Created user: "+JSON.stringify(createdUser,null,2));
-				users.push(createdUser);
+				var usr = result[0];
+				var created = result[1];
+				if (created) {
+					console.log("Created user: "+JSON.stringify(usr,null,2));
+					users.push(usr);
+				} else {
+					console.log("Existing user found user: "+JSON.stringify(usr,null,2));
+
+				}
+				
 			} catch(e) {
 				console.error("User findOrCreate error: " + e.stack);
 			}
@@ -88,32 +100,42 @@ function importData(_, app) {
 	}
 	
 	function createRole(_, name, users) {
-		var Role = app.models.Role;
-		var RoleMapping = app.models.RoleMapping;
+
+		// Redefine relations because json declaration does not work properly
+		RoleMapping.belongsTo(User);
+		//RoleMapping.belongsTo(Role);
+		//User.hasMany(Role, {through: RoleMapping, foreignKey: 'principalId'});
+		User.hasMany(RoleMapping, {foreignKey: 'principalId'});
+		Role.hasMany(User, {through: RoleMapping, foreignKey: 'roleId'});
 		
 		var roleObj = {
 			name: name
 		};
 		try {
-			var createdRole = Role.findOrCreate(
+			var result = Role.findOrCreate(
 				{where: {name: roleObj.name}}, // find
 				roleObj, // create
-				_ // callback
+				[_] // callback
 			);
-			console.log("Created role: "+JSON.stringify(createdRole,null,2));
+			var role = result[0];
+			var created = result[1]
 			
+			if (created) {
+				console.log("Created role: "+JSON.stringify(role,null,2));
+				roles.push(role);
+			} else {
+				console.log("Existing role found: "+JSON.stringify(role,null,2));
+
+			}
+
 			users.forEach_(_, function(_, user) {
-				var rolePrincipal = createdRole.principals.create({
+	            console.log("Role mapping USER associates user ["+user.username+"] to role ["+roleObj.name+"]");
+				var rolePrincipal = role.principals.create({
 	              principalType: RoleMapping.USER,
 	              principalId: user.id
 	            });
-	            console.log("Role mapping USER associates user ["+user.username+"] to role ["+roleObj.name+"]");
 			});
 			
-			
-			
-			
-			roles.push(createdRole);
 		} catch(e) {
 			console.error("Role findOrCreate error: " + e.stack);
 		}
@@ -131,31 +153,31 @@ function importData(_, app) {
 			//owner: owner.id
 		};
 		try {
-			var createdTeam = Team.findOrCreate(
+			var result = Team.findOrCreate(
 				{where: {name: teamObj.name}}, // find
 				teamObj, //  create
-				_ // callback
+				[_] // callback
 			);
+			var team = result[0];
+			var created = result[1];
 			
-			console.log("Created team: "+JSON.stringify(createdTeam, null, 2));
-			Team.setImage(createdTeam.id, "logo", "boot/data/shadow.jpeg");
+			if (created) {
+				console.log("Created team: "+JSON.stringify(team, null, 2));
+				Team.setImage(team.id, "logo", "boot/data/shadow.jpeg");
+					
+			} else {
+				console.log("Existing team found: "+JSON.stringify(team, null, 2));
+			}
 			
 			
 			members.forEach_(_, function(_, member) {
+	            console.log("Associate team " +team.id + " with user " + member.id);
+
 				var memberMap = MemberMapping.create({
-					teamId: createdTeam.id,
+					teamId: team.id,
 					userId: member.id
 	            }, _);
-	            console.log("Members: "+JSON.stringify(memberMap,null,2));
-			});
-			/*
-			var avatar = createdTeam.avatar.create({
-				filename: name + "Avatar",
-				mime: "image/jpeg",
-				content: getImage(_)
-			}, _);
-			*/
-			
+			});			
 
 		} catch(e) {
 			console.error("Team findOrCreate error " + e.stack);
@@ -166,7 +188,7 @@ function importData(_, app) {
 	
 	
 	createUsers(_);
-	createRole(_, "admin", [users[0]]);
+	createRole(_, "admin", users.slice(0, 1));
 	createRole(_, "user", users);
 	createTeam(_, "Team1", users.slice(2, 5), users[0]);
 	createTeam(_, "Team2", users.slice(5), users[0]);

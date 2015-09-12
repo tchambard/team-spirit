@@ -1,17 +1,24 @@
-<div class="box">
-  <div class="box-header">
-    <h3 class="box-title">
-      <a class="btn btn-default" translate><i class="fa fa-arrow-left"></i> Members</a>
-    </h3>
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Team's members</h3>
+      <a class="btn btn-default pull-right" href="#">
+        <i class="fa fa-plus"></i>
+        Add member
+      </a>
   </div>
-  <div class="box-body">
-	<div ng-repeat="member in team.members | orderBy:sortType:sortReverse">
-		{{member.lastName}} {{member.firstName}}
+    <div class="bootcards-list">
+	  <div class="panel panel-default">
+	    <div class="list-group">
+	    
+	      <a class="list-group-item" href="#" ng-repeat="member in team.members | orderBy:sortType:sortReverse">
+	        <img src="http://0.0.0.0:3000/api//Teams/%7BteamId%7D/getImage?teamId=55f30d14435c13fb03f7a813&property=logo" class="img-rounded pull-left"/>
+	        <h4 class="list-group-item-heading">{{member.firstName}} {{member.lastName}}</h4>
+	        <p class="list-group-item-text">{{member.role}} TODO ROLE</p>
+	      </a>
+	    </div>
+	  </div>
 	</div>
+  <div class="panel-footer">
+    <small><a class="btn"  ui-sref="app.team.members({id: team.id})">See all members</a></small>
   </div>
-
-
- </div>
-
-
-
+</div>

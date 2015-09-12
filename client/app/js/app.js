@@ -33,6 +33,7 @@ angular.module('loopbackApp', [
     'toasty',
     'autofields',
     'gettext',
+    'permission',
     'com.module.core',
     'com.module.users',
     'com.module.teams',
