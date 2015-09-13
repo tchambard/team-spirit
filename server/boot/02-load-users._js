@@ -15,6 +15,8 @@ function importData(_, app) {
 	var MemberMapping = app.models.MemberMapping;
 	var Binary = app.models.Binary;
 	
+	require('loopback').registry.registerBlobRelation(Team, ["logo", "ban"]);
+
 	var users = [], roles = [];
 	
 	function createUsers(_) {
@@ -111,8 +113,7 @@ function importData(_, app) {
 		User.hasMany(RoleMapping, {foreignKey: 'principalId'});
 		Role.hasMany(User, {through: RoleMapping, foreignKey: 'roleId'});
 		
-		Team.hasOne(Binary, {foreignKey: 'logoId', as: 'logo'});
-		Team.hasOne(Binary, {foreignKey: 'banId', as: 'ban'});
+
 		
 		
 		var roleObj = {
@@ -221,6 +222,7 @@ module.exports = function(app) {
 	  return;
   }
 
+  
   importData(_ >> function(err, res){
 	  if (err) throw err;
 	  return res;

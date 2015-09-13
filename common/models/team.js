@@ -1,3 +1,4 @@
-module.exports = function(Team) {
+var loopback = require('loopback');
 
+module.exports = function(Team) {
 };

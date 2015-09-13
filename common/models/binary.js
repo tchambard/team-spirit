@@ -1,10 +1,10 @@
-var mongoUtils = require("../tools/mongoUtils");
+var gridfs = require("../extends/gridfs");
 var loopback = require('loopback');
 
 module.exports = function(Binary) {
 	Binary.getBlob = function(id, res, cb) {
 		var db = loopback.User.app.datasources.db.connector.db;
-		mongoUtils.readBlob(db, id, res, function (err) {
+		gridfs.readBlob(db, id, res, function (err) {
 			res.type('application/json');
 			res.status(500).send({ error: err });
 		});
@@ -40,7 +40,7 @@ module.exports = function(Binary) {
 					ext = require('path').extname(options.filename);
 					buffer = require("fs").readFileSync(options.path + "/" + options.filename);
 				}
-				mongoUtils.writeBlob(db, options.filename, buffer, function(writerId) {
+				gridfs.writeBlob(db, options.filename, buffer, function(writerId) {
 					var propData = {
 						gridId: writerId,
 						filename: options.filename,

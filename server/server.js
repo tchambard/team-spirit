@@ -8,6 +8,7 @@ var boot = require('loopback-boot');
 var path = require('path');
 var app = module.exports = loopback();
 var env = require('get-env')();
+var customRegistry = require('./registry');
 
 // Set up the /favicon.ico
 app.use(loopback.favicon());
@@ -17,6 +18,9 @@ app.use(loopback.compress());
 
 // -- Add your pre-processing middleware here --
 
+
+// spirit custom registry
+customRegistry(app);
 
 // boot scripts mount components like REST API
 boot(app, __dirname);

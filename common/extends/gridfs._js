@@ -5,7 +5,7 @@ var mongo = require('mongodb');
 var grid = require('gridfs-stream');
 var writerApi = require('ez-streams/lib/writer');
 
-module.exports = {
+var gDevice = {
 
 	reader: function(db, options, onError) {
 		options = options || {};
@@ -36,4 +36,30 @@ module.exports = {
 		
 		return ez.devices.node.writer(writestream);		
 	}
+};
+
+
+exports.readBlob = function(db, id, writer, onError) {
+	var reader = gDevice.reader(db, {
+	  id: id
+	}, onError);
+	// stream data
+	reader.pipe(writer);
+};
+
+exports.writeBlob = function(db, filename, buffer, onFinish) {
+	var self = this;
+	// read from buffer
+	var reader = ez.devices.buffer.reader(buffer);
+	// streaming to gridfs
+	var writer = gDevice.writer(db, {
+		filename : filename
+	}, onFinish, function(err) {
+		throw err;
+	});
+	
+	// stream data
+	reader.pipe(_ >> function(err, res) {
+		if (err) throw err;
+	}, writer);
 };
