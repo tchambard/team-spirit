@@ -4,9 +4,9 @@
   "description": "Manage your teams",
   "version": "0.0.1",
   "engines": {
-    "node": "0.12.x",
-    "npm": "2.1.x"
-  },
+	    "node": "0.12.2",
+	    "npm": "2.7.4"
+	},
   "homepage": "https://github.com/tchambard/team-spirit",
   "author": "Teddy Chambard <teddy.chambard@gmail.com>",
   "license": "MIT",

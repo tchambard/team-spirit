@@ -1,0 +1,9 @@
+---
+buildpack: sdk-for-nodejs_v1-18-20150519-1759
+applications:
+- name: team-spirit
+  memory: 512M
+  host: team-spirit
+  domain: mybluemix.net
+  services:
+  - MongoLab
