@@ -79,8 +79,8 @@
     "public": true
   },
   "Binary": {
-	 "dataSource": "db",
-	 "public": true
+    "dataSource": "db",
+    "public": true
   },
   "Team": {
     "dataSource": "db",

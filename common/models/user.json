@@ -3,9 +3,9 @@
   "plural": "users",
   "base": "User",
   "properties": {
-	  "memberId": {
-		  "type": "string"
-	  }
+    "memberId": {
+      "type": "string"
+    }
   },
   "validations": [],
   "relations": {
@@ -27,15 +27,15 @@
     "roles": {
       "type": "hasMany",
       "model": "Role",
-      "through": "RoleMapping",
-      "foreignKey": "principalId"
+      "foreignKey": "principalId",
+      "through": "RoleMapping"
     },
     "teams": {
-        "type": "hasMany",
-        "model": "Team",
-        "foreignKey": "userId",
-        "through": "MemberMapping",
-        "keyThrough": "teamId"
+      "type": "hasMany",
+      "model": "Team",
+      "foreignKey": "userId",
+      "through": "MemberMapping",
+      "keyThrough": "teamId"
     }
   },
   "acls": [
@@ -64,5 +64,5 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": []
+  "methods": {}
 }

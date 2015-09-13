@@ -3,34 +3,37 @@
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
-	"name": {
-		"type": "string",
-		"required": true
-	},
-	"mainColor": {
-		"type": "string"
-	},
-	"secondColor": {
-		"type": "string"
-	},
-	"logo": {
-	  "type": "string"
-	},
-	"ban": {
-	  "type": "string"
-	}
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "mainColor": {
+      "type": "string"
+    },
+    "secondColor": {
+      "type": "string"
+    }
   },
   "validations": [],
   "relations": {
-
+    "logo": {
+      "type": "hasOne",
+      "model": "binary",
+      "foreignKey": "logoId"
+    },
+    "ban": {
+      "type": "hasOne",
+      "model": "binary",
+      "foreignKey": "banId"
+    },
     "members": {
-        "type": "hasMany",
-        "model": "user",
-        "foreignKey": "teamId",
-        "through": "MemberMapping",
-        "keyThrough": "userId"
-      }
+      "type": "hasMany",
+      "model": "user",
+      "foreignKey": "teamId",
+      "through": "MemberMapping",
+      "keyThrough": "userId"
+    }
   },
   "acls": [],
-  "methods": []
+  "methods": {}
 }

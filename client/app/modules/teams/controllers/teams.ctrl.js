@@ -69,13 +69,13 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 			$scope.loading = false;
 			$scope.teams = teams.map(function(t) {
 				if (t.logo) {
-					t.avatarUrl = CoreService.env.apiUrl +  "/Teams/{teamId}/getImage?teamId="+ t.id + "&property=logo";
+					t.avatarUrl = CoreService.env.apiUrl +  "/Binaries/getBlob?id="+ t.id + "&property=logo&model=Team";
 				} else {
 					//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 				}
 				
 				if (t.ban) {
-					t.banUrl = CoreService.env.apiUrl +  "/Teams/{teamId}/getImage?teamId="+ t.id + "&property=ban";
+					t.banUrl = CoreService.env.apiUrl +  "/Binaries/getBlob?id="+ t.id + "&property=ban&model=Team";
 				} else {
 					//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 				}

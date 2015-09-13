@@ -1,4 +1,4 @@
-{  
+{
   "name": "MemberMapping",
   "base": "PersistedModel",
   "properties": {},
@@ -14,5 +14,7 @@
       "model": "Team",
       "foreignKey": "teamId"
     }
-  }
+  },
+  "acls": [],
+  "methods": {}
 }

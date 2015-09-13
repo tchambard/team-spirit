@@ -11,6 +11,9 @@ function importData(_, app) {
 	var User = app.models.user;
 	var Role = app.models.Role;
 	var RoleMapping = app.models.RoleMapping;
+	var Team = app.models.Team;
+	var MemberMapping = app.models.MemberMapping;
+	var Binary = app.models.Binary;
 	
 	var users = [], roles = [];
 	
@@ -108,6 +111,10 @@ function importData(_, app) {
 		User.hasMany(RoleMapping, {foreignKey: 'principalId'});
 		Role.hasMany(User, {through: RoleMapping, foreignKey: 'roleId'});
 		
+		Team.hasOne(Binary, {foreignKey: 'logoId', as: 'logo'});
+		Team.hasOne(Binary, {foreignKey: 'banId', as: 'ban'});
+		
+		
 		var roleObj = {
 			name: name
 		};
@@ -143,9 +150,7 @@ function importData(_, app) {
 	}
 	
 	function createTeam(_, name, members, owner) {
-		var Team = app.models.Team;
-		var MemberMapping = app.models.MemberMapping;
-		var Image = app.models.Binary;
+
 		
 		var teamObj = {
 			name: name,
@@ -163,12 +168,23 @@ function importData(_, app) {
 			
 			if (created) {
 				console.log("Created team: "+JSON.stringify(team, null, 2));
-				Team.setImage(team.id, "logo", "boot/data/shadow.jpeg");
+	
+				Binary.setBlob({
+					path: "boot/data",
+					filename: "shadow.jpeg",
+					mime: "image/jpeg",
+					id: team.id,
+					model: "Team",
+					property: "logo"
+				});
+				
+				
+				//Team.setImage(team.id, "logo", "boot/data/shadow.jpeg");
 					
 			} else {
 				console.log("Existing team found: "+JSON.stringify(team, null, 2));
 			}
-			
+
 			
 			members.forEach_(_, function(_, member) {
 	            console.log("Associate team " +team.id + " with user " + member.id);
@@ -178,6 +194,8 @@ function importData(_, app) {
 					userId: member.id
 	            }, _);
 			});			
+			
+			
 
 		} catch(e) {
 			console.error("Team findOrCreate error " + e.stack);

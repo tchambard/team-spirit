@@ -38,7 +38,7 @@ angular.module('com.module.core')
     	  $scope.myImage = data.url;
       }
       
-  }).controller('Cropper2Ctrl', function($scope, $timeout, $state, $modalInstance, data, Cropper) {
+  }).controller('Cropper2Ctrl', function($scope, $timeout, $state, $modalInstance, data, Cropper, Binary) {
 	  var file, crData;
 
 	  var loadImage = function(blob) {
@@ -93,7 +93,15 @@ angular.module('com.module.core')
 	    	.then(Cropper.encode)
 	    	// upload
 	    	.then(function(dataUrl) {
-	    		data.uploadFn(data.id, data.prop, dataUrl, function(err, result) {
+	    		Binary.setBlob({
+	    			filename: "test.jpeg",
+	    			mime: "image/jpeg",
+	    			data: dataUrl,
+	    			model: "Team",
+	    			id: data.id,
+	    			property: data.prop
+	    		}, function(err, result) {
+	    		
 	    			$modalInstance.close();
 	    			$state.transitionTo($state.current, $state.params, { reload: true, inherit: true, notify: true })
 	    		},2000); 

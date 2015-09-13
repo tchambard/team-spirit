@@ -9,12 +9,12 @@
     "mime": {
       "type": "string"
     },
-    "content": {
-	  "type": "buffer"
-	}
+    "gridId": {
+    	"type": "string"
+    }
   },
   "validations": [],
   "relations": {},
   "acls": [],
-  "methods": []
+  "methods": {}
 }
