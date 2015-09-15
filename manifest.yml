@@ -6,4 +6,4 @@ applications:
   domain: mybluemix.net
   buildpack: sdk-for-nodejs_v2_4-20150813-1659-yp
   services:
-  - MongoLab
+  - MongoLab-nq

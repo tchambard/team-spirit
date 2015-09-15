@@ -1,11 +1,11 @@
 'use strict';
 var app = angular.module('com.module.core');
 
-app.service('CoreService', ['ENV', 'SweetAlert', 'toasty', function(ENV,
-  SweetAlert, toasty) {
+app.service('CoreService', ['ENV', 'toasty', function(ENV,
+  toasty) {
 
   this.env = ENV;
-
+/*
   this.alert = function(title, text) {
     SweetAlert.swal(title, text);
   };
@@ -24,7 +24,7 @@ app.service('CoreService', ['ENV', 'SweetAlert', 'toasty', function(ENV,
 
   this.alertInfo = function(title, text) {
     SweetAlert.swal(title, text, 'info');
-  };
+  };*/
 
   this.confirm = function(title, text, successCb, cancelCb) {
     var config = {
@@ -34,10 +34,12 @@ app.service('CoreService', ['ENV', 'SweetAlert', 'toasty', function(ENV,
       showCancelButton: true,
       confirmButtonColor: '#DD6B55'
     };
-    this._swal(config, successCb, cancelCb);
+    
+    // TODO !!!
+    //this._swal(config, successCb, cancelCb);
   };
 
-  this._swal = function(config, successCb, cancelCb) {
+ /* this._swal = function(config, successCb, cancelCb) {
     SweetAlert.swal(config,
       function(confirmed) {
         if (confirmed) {
@@ -46,7 +48,7 @@ app.service('CoreService', ['ENV', 'SweetAlert', 'toasty', function(ENV,
           cancelCb();
         }
       });
-  };
+  };*/
 
   this.toastSuccess = function(title, text) {
     toasty.pop.success({

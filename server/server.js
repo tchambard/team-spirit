@@ -7,7 +7,7 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 var path = require('path');
 var app = module.exports = loopback();
-var env = require('get-env')();
+var env = process.env.NODE_ENV;
 var customRegistry = require('./registry');
 
 // Set up the /favicon.ico
