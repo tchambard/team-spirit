@@ -1,7 +1,6 @@
 "use strict";
 
 var util = require('util');
-var gridfs = require("../common/extends/gridfs");
 
 module.exports = Registry;
 
@@ -128,8 +127,6 @@ function Registry(app) {
 		} else {
 			registerFn(modelName, properties);
 		}
-		
-		
 		
 	};
 }
