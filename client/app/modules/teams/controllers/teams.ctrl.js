@@ -69,7 +69,7 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 			$scope.loading = false;
 			$scope.teams = teams.map(function(t) {
 				if (t.logo) {
-					t.avatarUrl = CoreService.env.apiUrl +  "/Teams/getBlob?id="+ t.id;
+					t.avatarUrl = "/api/Teams/getBlob?id="+ t.id;
 				} else {
 					//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 				}

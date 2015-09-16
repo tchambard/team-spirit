@@ -17,13 +17,13 @@ angular.module('com.module.teams')
 	    	      }
 	    	    }, function(t) {
 					if (t.logo) {
-						t.avatarUrl = CoreService.env.apiUrl +  "/Teams/getLogo?id="+ t.logo.gridId;
+						t.avatarUrl = "/api/Teams/getLogo?id="+ t.logo.gridId;
 					} else {
 						//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 					}
 					
 					if (t.ban) {
-						t.banUrl = CoreService.env.apiUrl +  "/Teams/getBan?id="+ t.ban.gridId;
+						t.banUrl = "/api/Teams/getBan?id="+ t.ban.gridId;
 					} else {
 						//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 					}
