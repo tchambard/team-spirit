@@ -93,13 +93,11 @@ angular.module('com.module.core')
 	    	.then(Cropper.encode)
 	    	// upload
 	    	.then(function(dataUrl) {
-	    		Binary.setBlob({
+	    		data.uploadFn({
+	    			id: data.id,
 	    			filename: "test.jpeg",
 	    			mime: "image/jpeg",
-	    			data: dataUrl,
-	    			model: "Team",
-	    			id: data.id,
-	    			property: data.prop
+	    			data: dataUrl
 	    		}, function(err, result) {
 	    		
 	    			$modalInstance.close();

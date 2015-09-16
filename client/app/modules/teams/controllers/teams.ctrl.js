@@ -15,7 +15,7 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 			id: $scope.team.id,
 			prop: "logo",
 			url: $scope.team.avatarUrl,
-			uploadFn: TeamSvc.uploadImg,
+			uploadFn: Team.setLogo,
 			ratio: 1 / 1
 		}
 	}
@@ -25,7 +25,7 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 			id: $scope.team.id,
 			prop: "ban",
 			url: $scope.team.banUrl,
-			uploadFn: TeamSvc.uploadImg,
+			uploadFn: Team.setBan,
 			ratio: 3 / 1
 		}
 	}
@@ -69,16 +69,11 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 			$scope.loading = false;
 			$scope.teams = teams.map(function(t) {
 				if (t.logo) {
-					t.avatarUrl = CoreService.env.apiUrl +  "/Binaries/getBlob?id="+ t.id + "&property=logo&model=Team";
+					t.avatarUrl = CoreService.env.apiUrl +  "/Teams/getBlob?id="+ t.id;
 				} else {
 					//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 				}
-				
-				if (t.ban) {
-					t.banUrl = CoreService.env.apiUrl +  "/Binaries/getBlob?id="+ t.id + "&property=ban&model=Team";
-				} else {
-					//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
-				}
+
 				return t;
 			});
 		});

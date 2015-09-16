@@ -3,8 +3,6 @@
 // to enable these logs set `DEBUG=boot:02-load-users` or `DEBUG=boot:*`
 var log = require('debug')('boot:02-load-users');
 
-//require('events').EventEmitter.prototype._maxListeners = 100;
-
 
 function importData(_, app) {
 	
@@ -15,8 +13,6 @@ function importData(_, app) {
 	var MemberMapping = app.models.MemberMapping;
 	var Binary = app.models.Binary;
 	
-	require('loopback').registry.registerBlobRelation(Team, ["logo", "ban"]);
-
 	var users = [], roles = [];
 	
 	function createUsers(_) {
@@ -105,16 +101,6 @@ function importData(_, app) {
 	}
 	
 	function createRole(_, name, users) {
-
-		// Redefine relations because json declaration does not work properly
-		RoleMapping.belongsTo(User);
-		//RoleMapping.belongsTo(Role);
-		//User.hasMany(Role, {through: RoleMapping, foreignKey: 'principalId'});
-		User.hasMany(RoleMapping, {foreignKey: 'principalId'});
-		Role.hasMany(User, {through: RoleMapping, foreignKey: 'roleId'});
-		
-
-		
 		
 		var roleObj = {
 			name: name
@@ -126,7 +112,7 @@ function importData(_, app) {
 				[_] // callback
 			);
 			var role = result[0];
-			var created = result[1]
+			var created = result[1];
 			
 			if (created) {
 				console.log("Created role: "+JSON.stringify(role,null,2));
@@ -178,10 +164,7 @@ function importData(_, app) {
 					model: "Team",
 					property: "logo"
 				});
-				
-				
-				//Team.setImage(team.id, "logo", "boot/data/shadow.jpeg");
-					
+									
 			} else {
 				console.log("Existing team found: "+JSON.stringify(team, null, 2));
 			}

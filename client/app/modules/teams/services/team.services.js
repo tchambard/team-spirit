@@ -17,13 +17,13 @@ angular.module('com.module.teams')
 	    	      }
 	    	    }, function(t) {
 					if (t.logo) {
-						t.avatarUrl = CoreService.env.apiUrl +  "/Binaries/getBlob?id="+ t.logo.gridId;
+						t.avatarUrl = CoreService.env.apiUrl +  "/Teams/getLogo?id="+ t.logo.gridId;
 					} else {
 						//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 					}
 					
 					if (t.ban) {
-						t.banUrl = CoreService.env.apiUrl +  "/Binaries/getBlob?id="+ t.ban.gridId;
+						t.banUrl = CoreService.env.apiUrl +  "/Teams/getBan?id="+ t.ban.gridId;
 					} else {
 						//t.avatarUrl = "https://www.trynova.org/wp-content/uploads/2012/07/TEAM.jpg";
 					}
@@ -32,13 +32,6 @@ angular.module('com.module.teams')
 		    	    cb(err);
 	    		});
 	      
-	      },
-	      uploadImg: function(id, prop, data, cb) {
-	    	  Team.setImage({teamId: id, property: prop}, {data: data}, function(result, headers) {
-	    	    	cb(null, result);
-	    	    }, function(err) {
-		    	    cb(err);
-	    		});
 	      }
 	  }
   });

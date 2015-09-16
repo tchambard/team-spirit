@@ -52,7 +52,9 @@
     "passport-twitter": "^1.0.3",
     "streamline": "^0.12.1"
   },
-  "optionalDependencies": {},
+  "optionalDependencies": {
+  	"loopback-explorer": "1.6.4"
+  },
   "devDependencies": {
     "browserify": "^11.1.0"
   }
