@@ -22,4 +22,5 @@ module.exports = function(app) {
 	
 	// add blob capabilities to Team model
 	app.registry.registerBlobRelation("Team", ["logo", "ban"]);
+	app.registry.registerBlobRelation("Team", ["photo"], true);
 };

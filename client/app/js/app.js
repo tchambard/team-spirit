@@ -11,6 +11,7 @@ angular.module('loopbackApp', [
     'angular-loading-bar',
     'angular.filter',
     'angularFileUpload',
+    'angular-flexslider',
     'config',
     'formly',
     'lbServices',

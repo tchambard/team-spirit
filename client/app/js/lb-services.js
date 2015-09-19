@@ -10068,79 +10068,6 @@ module.factory(
           method: "POST"
         },
 
-        /**
-         * @ngdoc method
-         * @name lbServices.Binary#getBlob
-         * @methodOf lbServices.Binary
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *  - `id` – `{string}` - 
-         *
-         *  - `res` – `{object=}` - 
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * This method returns no data.
-         */
-        "getBlob": {
-          url: urlBase + "/binaries/getBlob",
-          method: "GET"
-        },
-
-        /**
-         * @ngdoc method
-         * @name lbServices.Binary#setBlob
-         * @methodOf lbServices.Binary
-         *
-         * @description
-         *
-         * <em>
-         * (The remote method definition does not provide any description.)
-         * </em>
-         *
-         * @param {Object=} parameters Request parameters.
-         *
-         *   This method does not accept any parameters.
-         *   Supply an empty object or omit this argument altogether.
-         *
-         * @param {Object} postData Request data.
-         *
-         * This method expects a subset of model properties as request parameters.
-         *
-         * @param {function(Object,Object)=} successCb
-         *   Success callback with two arguments: `value`, `responseHeaders`.
-         *
-         * @param {function(Object)=} errorCb Error callback with one argument:
-         *   `httpResponse`.
-         *
-         * @returns {Object} An empty reference that will be
-         *   populated with the actual data once the response is returned
-         *   from the server.
-         *
-         * Data properties:
-         *
-         *  - `img` – `{string=}` - 
-         */
-        "setBlob": {
-          url: urlBase + "/binaries/setBlob",
-          method: "POST"
-        },
-
         // INTERNAL. Use Team.logo() instead.
         "::get::Team::logo": {
           url: urlBase + "/Teams/:id/logo",
@@ -10201,6 +10128,65 @@ module.factory(
         "::destroy::Team::ban": {
           url: urlBase + "/Teams/:id/ban",
           method: "DELETE"
+        },
+
+        // INTERNAL. Use Team.photos.findById() instead.
+        "::findById::Team::photos": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Teams/:id/photos/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Team.photos.destroyById() instead.
+        "::destroyById::Team::photos": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Teams/:id/photos/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Team.photos.updateById() instead.
+        "::updateById::Team::photos": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Teams/:id/photos/:fk",
+          method: "PUT"
+        },
+
+        // INTERNAL. Use Team.photos() instead.
+        "::get::Team::photos": {
+          isArray: true,
+          url: urlBase + "/Teams/:id/photos",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Team.photos.create() instead.
+        "::create::Team::photos": {
+          url: urlBase + "/Teams/:id/photos",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Team.photos.createMany() instead.
+        "::createMany::Team::photos": {
+          isArray: true,
+          url: urlBase + "/Teams/:id/photos",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Team.photos.destroyAll() instead.
+        "::delete::Team::photos": {
+          url: urlBase + "/Teams/:id/photos",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Team.photos.count() instead.
+        "::count::Team::photos": {
+          url: urlBase + "/Teams/:id/photos/count",
+          method: "GET"
         },
       }
     );
@@ -10469,6 +10455,33 @@ module.factory(
           method: "DELETE"
         },
 
+        // INTERNAL. Use Team.photos.findById() instead.
+        "prototype$__findById__photos": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Teams/:id/photos/:fk",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Team.photos.destroyById() instead.
+        "prototype$__destroyById__photos": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Teams/:id/photos/:fk",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Team.photos.updateById() instead.
+        "prototype$__updateById__photos": {
+          params: {
+          'fk': '@fk'
+          },
+          url: urlBase + "/Teams/:id/photos/:fk",
+          method: "PUT"
+        },
+
         // INTERNAL. Use Team.members() instead.
         "prototype$__get__members": {
           isArray: true,
@@ -10491,6 +10504,31 @@ module.factory(
         // INTERNAL. Use Team.members.count() instead.
         "prototype$__count__members": {
           url: urlBase + "/Teams/:id/members/count",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Team.photos() instead.
+        "prototype$__get__photos": {
+          isArray: true,
+          url: urlBase + "/Teams/:id/photos",
+          method: "GET"
+        },
+
+        // INTERNAL. Use Team.photos.create() instead.
+        "prototype$__create__photos": {
+          url: urlBase + "/Teams/:id/photos",
+          method: "POST"
+        },
+
+        // INTERNAL. Use Team.photos.destroyAll() instead.
+        "prototype$__delete__photos": {
+          url: urlBase + "/Teams/:id/photos",
+          method: "DELETE"
+        },
+
+        // INTERNAL. Use Team.photos.count() instead.
+        "prototype$__count__photos": {
+          url: urlBase + "/Teams/:id/photos/count",
           method: "GET"
         },
 
@@ -11056,6 +11094,79 @@ module.factory(
          */
         "setBan": {
           url: urlBase + "/Teams/setBan",
+          method: "POST"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Team#getPhoto
+         * @methodOf lbServices.Team
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{string}` - 
+         *
+         *  - `res` – `{object=}` - 
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        "getPhoto": {
+          url: urlBase + "/Teams/getPhoto",
+          method: "GET"
+        },
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Team#addPhoto
+         * @methodOf lbServices.Team
+         *
+         * @description
+         *
+         * <em>
+         * (The remote method definition does not provide any description.)
+         * </em>
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *   This method does not accept any parameters.
+         *   Supply an empty object or omit this argument altogether.
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `blob` – `{string=}` - 
+         */
+        "addPhoto": {
+          url: urlBase + "/Teams/addPhoto",
           method: "POST"
         },
 
@@ -12084,6 +12195,307 @@ module.factory(
         R.ban.update = function() {
           var TargetResource = $injector.get("Binary");
           var action = TargetResource["::update::Team::ban"];
+          return action.apply(R, arguments);
+        };
+    /**
+     * @ngdoc object
+     * @name lbServices.Team.photos
+     * @header lbServices.Team.photos
+     * @object
+     * @description
+     *
+     * The object `Team.photos` groups methods
+     * manipulating `Binary` instances related to `Team`.
+     *
+     * Call {@link lbServices.Team#photos Team.photos()}
+     * to query all related instances.
+     */
+
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Team#photos
+         * @methodOf lbServices.Team
+         *
+         * @description
+         *
+         * Queries photos of Team.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `filter` – `{object=}` - 
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Binary` object.)
+         * </em>
+         */
+        R.photos = function() {
+          var TargetResource = $injector.get("Binary");
+          var action = TargetResource["::get::Team::photos"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Team.photos#count
+         * @methodOf lbServices.Team.photos
+         *
+         * @description
+         *
+         * Counts photos of Team.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `where` – `{object=}` - Criteria to match model instances
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * Data properties:
+         *
+         *  - `count` – `{number=}` - 
+         */
+        R.photos.count = function() {
+          var TargetResource = $injector.get("Binary");
+          var action = TargetResource["::count::Team::photos"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Team.photos#create
+         * @methodOf lbServices.Team.photos
+         *
+         * @description
+         *
+         * Creates a new instance in photos of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Binary` object.)
+         * </em>
+         */
+        R.photos.create = function() {
+          var TargetResource = $injector.get("Binary");
+          var action = TargetResource["::create::Team::photos"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Team.photos#createMany
+         * @methodOf lbServices.Team.photos
+         *
+         * @description
+         *
+         * Creates a new instance in photos of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Array.<Object>,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Array.<Object>} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Binary` object.)
+         * </em>
+         */
+        R.photos.createMany = function() {
+          var TargetResource = $injector.get("Binary");
+          var action = TargetResource["::createMany::Team::photos"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Team.photos#destroyAll
+         * @methodOf lbServices.Team.photos
+         *
+         * @description
+         *
+         * Deletes all photos of this model.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.photos.destroyAll = function() {
+          var TargetResource = $injector.get("Binary");
+          var action = TargetResource["::delete::Team::photos"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Team.photos#destroyById
+         * @methodOf lbServices.Team.photos
+         *
+         * @description
+         *
+         * Delete a related item by id for photos.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for photos
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * This method returns no data.
+         */
+        R.photos.destroyById = function() {
+          var TargetResource = $injector.get("Binary");
+          var action = TargetResource["::destroyById::Team::photos"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Team.photos#findById
+         * @methodOf lbServices.Team.photos
+         *
+         * @description
+         *
+         * Find a related item by id for photos.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for photos
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Binary` object.)
+         * </em>
+         */
+        R.photos.findById = function() {
+          var TargetResource = $injector.get("Binary");
+          var action = TargetResource["::findById::Team::photos"];
+          return action.apply(R, arguments);
+        };
+
+        /**
+         * @ngdoc method
+         * @name lbServices.Team.photos#updateById
+         * @methodOf lbServices.Team.photos
+         *
+         * @description
+         *
+         * Update a related item by id for photos.
+         *
+         * @param {Object=} parameters Request parameters.
+         *
+         *  - `id` – `{*}` - PersistedModel id
+         *
+         *  - `fk` – `{*}` - Foreign key for photos
+         *
+         * @param {Object} postData Request data.
+         *
+         * This method expects a subset of model properties as request parameters.
+         *
+         * @param {function(Object,Object)=} successCb
+         *   Success callback with two arguments: `value`, `responseHeaders`.
+         *
+         * @param {function(Object)=} errorCb Error callback with one argument:
+         *   `httpResponse`.
+         *
+         * @returns {Object} An empty reference that will be
+         *   populated with the actual data once the response is returned
+         *   from the server.
+         *
+         * <em>
+         * (The remote method definition does not provide any description.
+         * This usually means the response is a `Binary` object.)
+         * </em>
+         */
+        R.photos.updateById = function() {
+          var TargetResource = $injector.get("Binary");
+          var action = TargetResource["::updateById::Team::photos"];
           return action.apply(R, arguments);
         };
 

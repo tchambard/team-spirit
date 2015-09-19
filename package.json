@@ -41,6 +41,7 @@
     "ez-streams": "^0.1.7",
     "get-env": "^0.4.0",
     "gridfs-stream": "^1.1.1",
+    "inflection": "^1.7.1",
     "loopback": "^2.22.0",
     "loopback-boot": "^2.12.2",
     "loopback-component-passport": "^1.5.0",
@@ -53,7 +54,7 @@
     "streamline": "^0.12.1"
   },
   "optionalDependencies": {
-  	"loopback-explorer": "1.6.4"
+    "loopback-explorer": "1.6.4"
   },
   "devDependencies": {
     "browserify": "^11.1.0"

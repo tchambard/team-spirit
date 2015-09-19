@@ -9,7 +9,7 @@
     "mime": {
       "type": "string"
     },
-    "gridId": {
+    "blobId": {
     	"type": "string"
     }
   },

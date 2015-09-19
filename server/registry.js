@@ -1,6 +1,7 @@
 "use strict";
 
 var util = require('util');
+var inflection = require( 'inflection' );
 
 module.exports = Registry;
 
@@ -14,7 +15,7 @@ function Registry(app) {
 	var Binary;
 	
 	
-	function addSingularModelMethods(modelName, property) {
+	function addModelMethods(modelName, property, pluralName) {
 		
 		var Model = app.models[modelName];
 		var capitalizedName = property.charAt(0).toUpperCase() + property.substring(1);
@@ -23,7 +24,9 @@ function Registry(app) {
 			Binary.getBlob(blobId, res, cb);
 		};
 		
-		Model["set" + capitalizedName] = function(options, cb) {
+		
+		var setPrefix = pluralName ? "add" : "set";
+		Model[setPrefix + capitalizedName] = function(options, cb) {
 
 			Model.findOne({
 				where : {
@@ -36,31 +39,40 @@ function Registry(app) {
 					data: options.data,
 					path: options.path,
 					filename: options.filename
-				}, function(err, gridId) {
+				}, function(err, blobId) {
 					var propData = {
-						gridId: gridId,
+						blobId: blobId,
 						filename: options.filename,
 						mime: options.mime
 					};
 					
-					// get property value
-					inst[property](function(err, rel) {
-						if (err) cb(err);
-						// if no value, create it
-						if (!rel) {
-							inst[property].create(propData, function(err, rel) {
-								if (err) cb(err);
-								if (cb) cb(null,rel.gridId);
-							});
-						} 
-						// else if value is already set, update it
-						else {
-							inst[property].update(propData, function(err, rel) {
-								if (err) cb(err);
-								if (cb) cb(null,rel.gridId);
-							});
-						}
-					});
+					if (pluralName) {
+						inst[pluralName].create(propData, function(err, rel) {
+							if (err) cb(err);
+							if (cb) cb(null,rel.blobId);
+						});
+					}else {
+						// get property value
+						inst[property](function(err, rel) {
+							if (err) cb(err);
+							// if no value, create it
+							if (!rel) {
+								inst[property].create(propData, function(err, rel) {
+									if (err) cb(err);
+									if (cb) cb(null,rel.blobId);
+								});
+							} 
+							// else if value is already set, update it
+							else {
+								inst[property].update(propData, function(err, rel) {
+									if (err) cb(err);
+									if (cb) cb(null,rel.blobId);
+								});
+							}
+						});
+					}
+					
+					
 				});
 
 			});
@@ -88,9 +100,9 @@ function Registry(app) {
 		  }
 		});
 		
-		Model.remoteMethod('set' + capitalizedName, {
+		Model.remoteMethod(setPrefix + capitalizedName, {
 			http : {
-				path : '/set' + capitalizedName,
+				path : setPrefix + capitalizedName,
 				verb : 'post'
 			},
 			
@@ -111,11 +123,13 @@ function Registry(app) {
 	
 	function _registerOneBlob(modelName, property) {
 		app.models[modelName].hasOne(Binary, {foreignKey: property + 'Id', as: property});
-		addSingularModelMethods(modelName, property);
+		addModelMethods(modelName, property);
 	}
 
-	function _registerManyBlobs(Model, property) {
-		
+	function _registerManyBlobs(modelName, property) {
+		var pluralName = inflection.pluralize(property);
+		app.models[modelName].hasMany(Binary, {foreignKey: property + 'Id', as: pluralName});
+		addModelMethods(modelName, property, pluralName);
 	}
 	app.registry.registerBlobRelation = function(modelName, properties, isPlural) {
 		if (!Binary) Binary = app.models.Binary;

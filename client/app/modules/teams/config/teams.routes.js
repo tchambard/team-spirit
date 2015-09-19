@@ -44,6 +44,10 @@ angular.module('com.module.teams')
             	},
             	templateUrl: 'modules/teams/views/cards/json-card.html'
             },
+            'photosCard@app.team.details': {
+            	controller: "TeamPhotosCtrl",
+            	templateUrl: 'modules/teams/views/cards/photos-cards.html'
+            },
         }
         
       })
@@ -51,6 +55,12 @@ angular.module('com.module.teams')
     	  url: '/:id/members',
     	  templateUrl: 'modules/teams/views/members.html',
     	  controller: 'TeamMembersCtrl',
+    	  authenticate: true
+      })
+      .state('app.team.photos', {
+    	  url: '/:id/photos',
+    	  templateUrl: 'modules/teams/views/photos.html',
+    	  controller: 'TeamPhotosCtrl',
     	  authenticate: true
       })
       .state('app.team.add', {

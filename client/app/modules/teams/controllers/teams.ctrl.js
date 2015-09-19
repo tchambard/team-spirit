@@ -3,12 +3,7 @@ var app = angular.module('com.module.teams');
 
 app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog) {
 	  
-	$scope.getTeam = function(id) {
-		return TeamSvc.getTeamById($stateParams.id, function(err, team) {
-		  if (err) CoreService.toastError(gettextCatalog.getString('Error getting team: ' + err.message));
-		  $scope.team = team;
-	  });
-	};
+
 	
 	$scope.getLogoModalData = function() {
 		return {
@@ -17,8 +12,8 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 			url: $scope.team.avatarUrl,
 			uploadFn: Team.setLogo,
 			ratio: 1 / 1
-		}
-	}
+		};
+	};
 	
 	$scope.getBanModalData = function() {
 		return {
@@ -27,11 +22,17 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 			url: $scope.team.banUrl,
 			uploadFn: Team.setBan,
 			ratio: 3 / 1
-		}
-	}
+		};
+	};
 	
 	if ($stateParams.id) {   
-		$scope.team = $scope.getTeam($stateParams.id);
+		TeamSvc.getTeamById($stateParams.id, function(err, team) {
+		  if (err) {
+			  CoreService.toastError(gettextCatalog.getString('Error getting team: ' + err.message));
+			  throw err;
+		  }
+		  $scope.team = team;
+		});
 	} else {
 		$scope.team = {};
 	}
@@ -49,7 +50,13 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 	
 	
 	if ($stateParams.id) {   
-		$scope.team = $scope.getTeam($stateParams.id);
+		TeamSvc.getTeamById($stateParams.id, function(err, team) {
+		  if (err) {
+			  CoreService.toastError(gettextCatalog.getString('Error getting team: ' + err.message));
+			  throw err;
+		  }
+		  $scope.team = team;
+		});
 	} else {
 		$scope.team = {};
 	}
@@ -77,7 +84,7 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 				return t;
 			});
 		});
-	}
+	};
 
 
 	  $scope.delete = function(id) {
@@ -136,5 +143,24 @@ app.controller('TeamViewCtrl', function($scope, $stateParams, $state, CoreServic
 	  
 	  
 	  
+}).controller('TeamPhotosCtrl', function($scope, $stateParams, $state, CoreService, Team, TeamSvc, gettextCatalog) {
 
+	
+	TeamSvc.getTeamById($stateParams.id, function(err, team) {
+		  if (err) {
+			  CoreService.toastError(gettextCatalog.getString('Error getting team: ' + err.message));
+			  throw err;
+		  }
+		  if (team.photos) {
+			  $scope.photos = [];
+			  team.photos.forEach(function(photo) {
+				  $scope.photos.push({
+					 title: photo.filename,
+					 url: "/api/Teams/getPhoto?id="+photo.blobId
+				  });
+			  });
+		  }
+		});
+	console.log("photos:", $scope.team);
+	
 });

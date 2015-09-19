@@ -9,9 +9,14 @@ body {
 	background-size: 100% auto;
 }
 
+.container {
+    padding-right: 30px;
+    padding-left: 30px;
+    margin-left: initial;}
+
 .blended_grid {
 	display: block;
-	width: 1200px;
+	float: left;
 	overflow: auto;
 	margin: 0 auto;
 }
@@ -42,7 +47,7 @@ body {
 	float: left;
 	clear: none;
 	height: 1000px;
-	width: 800px;
+	width: 600px;
 }
 
 .pageBarRight {
@@ -50,6 +55,13 @@ body {
 	clear: none;
 	min-width: 80px;
 	min-height: 80px;
+}
+
+.pageBarRight .card{
+	margin-top: 20px;
+	float: none;
+	clear: both;
+	width: 300px;
 }
 
 .pageRightTop {

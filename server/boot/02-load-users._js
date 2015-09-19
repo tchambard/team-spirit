@@ -156,13 +156,20 @@ function importData(_, app) {
 			if (created) {
 				console.log("Created team: "+JSON.stringify(team, null, 2));
 	
-				Binary.setBlob({
+				Team.setLogo({
 					path: "boot/data",
 					filename: "shadow.jpeg",
 					mime: "image/jpeg",
-					id: team.id,
-					model: "Team",
-					property: "logo"
+					id: team.id
+				});
+				
+				["shadow.jpeg", "team-member.jpg", "full_sixroses.jpg"].forEach(function(filename){
+					Team.addPhoto({
+						path: "boot/data",
+						filename: filename,
+						mime: "image/jpeg",
+						id: team.id
+					});
 				});
 									
 			} else {
@@ -180,6 +187,7 @@ function importData(_, app) {
 			});			
 			
 			
+
 
 		} catch(e) {
 			console.error("Team findOrCreate error " + e.stack);
