@@ -18,12 +18,12 @@
   "relations": {
     "logo": {
       "type": "hasOne",
-      "model": "binary",
+      "model": "Binary",
       "foreignKey": "logoId"
     },
     "ban": {
       "type": "hasOne",
-      "model": "binary",
+      "model": "Binary",
       "foreignKey": "banId"
     },
     "members": {

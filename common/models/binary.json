@@ -1,6 +1,6 @@
 {
   "name": "Binary",
-  "plural": "binaries",
+  "plural": "Binaries",
   "base": "PersistedModel",
   "properties": {
     "filename": {

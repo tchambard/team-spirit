@@ -2,6 +2,7 @@
 
 var util = require('util');
 var inflection = require( 'inflection' );
+var log = require('debug')('xregistry');
 
 module.exports = Registry;
 
@@ -33,13 +34,20 @@ function Registry(app) {
 					id : options.id
 				}
 			}, function(err, inst) {
-				if (err) cb(err);
+				if (err) {
+					console.error(err.stack);
+					cb(err);
+				}
 
 				Binary.setBlob({
 					data: options.data,
 					path: options.path,
 					filename: options.filename
 				}, function(err, blobId) {
+					if (err) {
+						console.error(err.stack);
+						cb(err);
+					}
 					var propData = {
 						blobId: blobId,
 						filename: options.filename,
@@ -48,24 +56,36 @@ function Registry(app) {
 					
 					if (pluralName) {
 						inst[pluralName].create(propData, function(err, rel) {
-							if (err) cb(err);
+							if (err) {
+								console.error(err.stack);
+								cb(err);
+							}
 							if (cb) cb(null,rel.blobId);
 						});
 					}else {
 						// get property value
 						inst[property](function(err, rel) {
-							if (err) cb(err);
+							if (err) {
+								console.error(err.stack);
+								cb(err);
+							}
 							// if no value, create it
 							if (!rel) {
 								inst[property].create(propData, function(err, rel) {
-									if (err) cb(err);
+									if (err) {
+										console.error(err.stack);
+										cb(err);
+									}
 									if (cb) cb(null,rel.blobId);
 								});
 							} 
 							// else if value is already set, update it
 							else {
 								inst[property].update(propData, function(err, rel) {
-									if (err) cb(err);
+									if (err) {
+										console.error(err.stack);
+										cb(err);
+									}
 									if (cb) cb(null,rel.blobId);
 								});
 							}
@@ -77,7 +97,7 @@ function Registry(app) {
 
 			});
 		};
-		
+		log("Create remote method : "+'get' + capitalizedName);
 		Model.remoteMethod('get' + capitalizedName, {
 		  accepts: [{
 				arg : 'id',
@@ -99,10 +119,10 @@ function Registry(app) {
 		    path: '/get' + capitalizedName
 		  }
 		});
-		
+		log("Create remote method : "+setPrefix + capitalizedName);
 		Model.remoteMethod(setPrefix + capitalizedName, {
 			http : {
-				path : setPrefix + capitalizedName,
+				path : "/" + setPrefix + capitalizedName,
 				verb : 'post'
 			},
 			
@@ -132,6 +152,7 @@ function Registry(app) {
 		addModelMethods(modelName, property, pluralName);
 	}
 	app.registry.registerBlobRelation = function(modelName, properties, isPlural) {
+		log("Add properties "+JSON.stringify(properties)+" to model '" +modelName+"'");
 		if (!Binary) Binary = app.models.Binary;
 		var registerFn = isPlural ? _registerManyBlobs : _registerOneBlob;
 		if (Array.isArray(properties)) {
