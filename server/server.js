@@ -44,13 +44,9 @@ if (env !== 'prod') {
   app.use('/app', loopback.static(path.resolve(staticPath, 'dist')));
 }
 
-
 //
-app.use(loopback.static(staticPath));
-/*app.use('/dist', loopback.static(path.resolve(staticPath, 'dist')));
-app.use('/css', loopback.static(path.resolve(staticPath, 'css')));
-app.use('/images', loopback.static(path.resolve(staticPath, 'images')));
-app.use('/node_modules', loopback.static(path.resolve(staticPath, 'node_modules')));
+//app.use(loopback.static(staticPath));
+app.use('/js', loopback.static(path.resolve(staticPath, 'js')));
 
 
 
@@ -60,7 +56,7 @@ app.all('/*', function(req, res, next) {
   // Just send the index.html for other files to support HTML5Mode
   res.sendFile('index.html', { root: staticPath });
 });
-*/
+
 
 // Requests that get this far won't be handled
 // by any middleware. Convert them into a 404 error
