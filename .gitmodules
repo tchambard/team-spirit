@@ -1,0 +1,3 @@
+[submodule "spirit-ng2"]
+	path = spirit-ng2
+	url = https://github.com/tchambard/spirit-ng2

@@ -3,7 +3,6 @@
 var ez = require('ez-streams');
 var mongo = require('mongodb');
 var grid = require('gridfs-stream');
-var writerApi = require('ez-streams/lib/writer');
 
 var gDevice = {
 
