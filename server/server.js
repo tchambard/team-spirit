@@ -47,6 +47,7 @@ if (env !== 'prod') {
 //
 //app.use(loopback.static(staticPath));
 app.use('/js', loopback.static(path.resolve(staticPath, 'js')));
+app.use('/node_modules', loopback.static(path.resolve(staticPath, 'node_modules')));
 
 
 
